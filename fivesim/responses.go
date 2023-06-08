@@ -12,6 +12,14 @@ type Product struct {
 // Products represents a map of servicename:product
 type Products map[string]Product
 
+// Orders ...
+type Orders struct {
+	Data         []ActivationOrder `json:"Data"`
+	ProductNames interface{}       `json:"ProductNames"`
+	Statuses     interface{}       `json:"Statuses"`
+	Total        int               `json:"Total"`
+}
+
 // UserInfo represents info about the user
 type UserInfo struct {
 	ID      int     `json:"id"`
@@ -43,7 +51,7 @@ type ActivationOrder struct {
 	CreatedAt        time.Time `json:"created_at"`
 	Forwarding       bool      `json:"forwarding"`
 	ForwardingNumber string    `json:"forwarding_number"`
-	Country          string    `json:"russia"`
+	Country          string    `json:"country"`
 }
 
 // HostingOrder represents info about an hosting order

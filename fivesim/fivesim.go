@@ -135,6 +135,52 @@ func (c *Client) GetProducts(country, operator, service string) (Products, error
 	return products, nil
 }
 
+// GetOrders ...
+/*
+
+*/
+func (c *Client) GetOrders(category string) (Orders, error) {
+	//
+	queryValues := url.Values{}
+	queryValues.Add("category", category) // 'hoting' or 'activation'
+
+	// queryValues.Add("limit", 0)
+	// queryValues.Add("offset", 0)
+	// queryValues.Add("order", 0) // should be field name
+	// queryValues.Add("reverse", true)
+	
+	// Make request
+	resp, err := c.makeGetRequest(
+		fmt.Sprintf("%s/v1/user/orders", FivesimAPIEndpoint),
+		&queryValues,
+	)
+
+	if err != nil {
+		return Orders{}, err
+	}
+
+	// Check status code
+	if resp.StatusCode != 200 {
+		return Orders{}, fmt.Errorf("%s", resp.Status)
+	}
+
+	// Read request body
+	r, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		resp.Body.Close()
+		return Orders{}, err
+	}
+	resp.Body.Close()
+
+	// Unmarshal the body into orders struct
+	var orders Orders
+	if err = json.Unmarshal(r, &orders); err != nil {
+		return Orders{}, err
+	}
+
+	return orders, nil
+}
+
 // GetUserInfo returns ID, Email, Balance and rating of the user in a single request
 func (c *Client) GetUserInfo() (*UserInfo, error) {
 	// Make request
