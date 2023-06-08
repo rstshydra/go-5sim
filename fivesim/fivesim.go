@@ -151,7 +151,7 @@ func (c *Client) GetOrders(category string) (Orders, error) {
 	
 	// Make request
 	resp, err := c.makeGetRequest(
-		fmt.Sprintf("%s/v1/user/orders", FivesimAPIEndpoint),
+		fmt.Sprintf("%s/user/orders", FivesimAPIEndpoint),
 		&queryValues,
 	)
 
