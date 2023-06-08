@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Fef0/go-5sim/fivesim"
+	"github.com/rstshydra/go-5sim/fivesim"
 )
 
 func main() {
